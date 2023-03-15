@@ -114,9 +114,9 @@ def zad2():
                     list[j].status = -1
                     j1 = j + 1
                     list[i].dele = list[i].dele + str(j1) + ' '
+    webbrowser.open_new_tab("https://clck.ru/33mmCQ")
     for i in range(5):
         webbrowser.open_new_tab("https://clck.ru/AXQBP")
-    webbrowser.open_new_tab("https://clck.ru/33mmCQ")
     pt1 = PrettyTable()
     pt1.field_names = ["id", "u1", "u2", "j1", "j2", 'Status', 'Use', 'Del']
     for i in range(numtochek):
