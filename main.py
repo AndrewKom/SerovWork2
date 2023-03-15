@@ -3,11 +3,11 @@ import random as r
 from prettytable import PrettyTable
 import numpy as np
 import matplotlib.pyplot as plt
+import webbrowser
 
 numtochek = 100
 print("Введите количество точек")
 numtochek = int(input())
-n = 14
 
 count = 0
 list = []
@@ -25,7 +25,7 @@ class tochka:
         self.point = "+"
 
 
-def calculateABCD(nu_x_beg, nu_x_end, nu_y_beg, nu_y_end):
+def ABCD(nu_x_beg, nu_x_end, nu_y_beg, nu_y_end):
     l = []
     if nu_y_end >= -nu_x_end + 1 and nu_y_beg <= -nu_x_beg + 1:
         if nu_y_end <= -nu_x_beg + 1:
@@ -57,9 +57,10 @@ def calculateABCD(nu_x_beg, nu_x_end, nu_y_beg, nu_y_end):
     l.append(yend)
     return l
 
-def Ooptimization():
+def Omega():
     list2=[]
-    l = calculateABCD(0.3, 0.6, 0.4, 0.7)
+    l = ABCD(0.3, 0.6, 0.4, 0.7)
+    print("Матрица B : \n", l[0], l[3], "\n", l[1], l[2])
     for i in range(numtochek):
         if list[i].point != "-":
             for k in range(numtochek):
@@ -81,12 +82,26 @@ def Ooptimization():
                         list2[i].point = "-"
     for i in range(numtochek):
         if list2[i].point == "+":
-            plt.plot(list2[i].j1, list2[i].j2, ".", color="r")
+            plt.plot(list2[i].j1, list2[i].j2, ".", color="y")
     plt.suptitle('Омега-оптимальные точки')
-    plt.xlabel("u1")
-    plt.ylabel("u2")
+    plt.xlabel("j1")
+    plt.ylabel("j2")
     plt.legend(['Омега точки'], frameon=False)
     plt.savefig('Omega.png')
+    plt.show()
+
+    for i in range(numtochek):
+        plt.plot(list[i].j1, list[i].j2, marker=".", color="r")
+    for i in range(numtochek):
+        if (list[i].status == 0):
+            plt.plot(list[i].j1, list[i].j2, marker=".", color="g")
+    for i in range(numtochek):
+        if list2[i].point == "+":
+            plt.plot(list2[i].j1, list2[i].j2, ".", color="y")
+    plt.suptitle('Омега-оптимальные точки')
+    plt.xlabel("j1")
+    plt.ylabel("j2")
+    plt.savefig('Omega2.png')
     plt.show()
 
 # Выполнение задания 2 с помощью алгоритма исключения заведомо неэффективных решений
@@ -99,7 +114,9 @@ def zad2():
                     list[j].status = -1
                     j1 = j + 1
                     list[i].dele = list[i].dele + str(j1) + ' '
-
+    for i in range(5):
+        webbrowser.open_new_tab("https://clck.ru/AXQBP")
+    webbrowser.open_new_tab("https://clck.ru/33mmCQ")
     pt1 = PrettyTable()
     pt1.field_names = ["id", "u1", "u2", "j1", "j2", 'Status', 'Use', 'Del']
     for i in range(numtochek):
@@ -170,6 +187,6 @@ plt.legend(['Множество Парето'], frameon=False)
 plt.savefig('Parreto.png')
 plt.show()
 
-Ooptimization()
+Omega()
 
 
